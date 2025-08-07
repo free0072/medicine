@@ -538,7 +538,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, categories, onClose,
               </label>
               <input
                 type="text"
-                value={formData.sideEffects.join(', ')}
+                value={formData.sideEffects?.join(', ') || ''}
                 onChange={(e) => handleArrayInputChange('sideEffects', e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -550,7 +550,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, categories, onClose,
               </label>
               <input
                 type="text"
-                value={formData.contraindications.join(', ')}
+                value={formData.contraindications?.join(', ') || ''}
                 onChange={(e) => handleArrayInputChange('contraindications', e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -562,7 +562,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, categories, onClose,
               </label>
               <input
                 type="text"
-                value={formData.drugInteractions.join(', ')}
+                value={formData.drugInteractions?.join(', ') || ''}
                 onChange={(e) => handleArrayInputChange('drugInteractions', e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -576,7 +576,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, categories, onClose,
             </label>
             <input
               type="text"
-              value={formData.tags.join(', ')}
+              value={formData.tags?.join(', ') || ''}
               onChange={(e) => handleArrayInputChange('tags', e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="e.g., pain relief, fever, headache"

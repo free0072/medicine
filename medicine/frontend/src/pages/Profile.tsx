@@ -17,7 +17,7 @@ import { api } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 
 const Profile: React.FC = () => {
-  const { user, updateUser } = useAuth();
+  const { user, updateProfile } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [formData, setFormData] = useState({
@@ -51,7 +51,7 @@ const Profile: React.FC = () => {
     mutationFn: (data: any) => api.updateProfile(data),
     onSuccess: (updatedUser) => {
       toast.success('Profile updated successfully');
-      updateUser(updatedUser);
+      updateProfile(updatedUser);
       setIsEditing(false);
       queryClient.invalidateQueries({ queryKey: ['user-profile'] });
     },

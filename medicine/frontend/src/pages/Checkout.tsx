@@ -5,8 +5,7 @@ import {
   CreditCardIcon, 
   TruckIcon, 
   DocumentTextIcon,
-  ExclamationTriangleIcon,
-  CheckCircleIcon
+  ExclamationTriangleIcon
 } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
@@ -14,10 +13,9 @@ import { useCart } from '../contexts/CartContext';
 
 const Checkout: React.FC = () => {
   const navigate = useNavigate();
-  const { updateCart } = useCart();
+  const { clearCart } = useCart();
   const queryClient = useQueryClient();
   const [step, setStep] = useState(1);
-  const [prescriptionFile, setPrescriptionFile] = useState<File | null>(null);
   const [prescriptionPreview, setPrescriptionPreview] = useState<string | null>(null);
 
   // Form data
@@ -56,7 +54,7 @@ const Checkout: React.FC = () => {
     mutationFn: (orderData: any) => api.createOrder(orderData),
     onSuccess: (order) => {
       toast.success('Order placed successfully!');
-      updateCart(null);
+      clearCart();
       queryClient.invalidateQueries({ queryKey: ['cart'] });
       queryClient.invalidateQueries({ queryKey: ['orders'] });
       navigate(`/orders/${order._id}`);
@@ -66,11 +64,11 @@ const Checkout: React.FC = () => {
     },
   });
 
-  const handleInputChange = (section: string, field: string, value: string) => {
+  const handleInputChange = (section: 'shippingAddress' | 'billingAddress', field: string, value: string) => {
     setFormData(prev => ({
       ...prev,
       [section]: {
-        ...prev[section as keyof typeof prev],
+        ...prev[section],
         [field]: value
       }
     }));
@@ -79,7 +77,6 @@ const Checkout: React.FC = () => {
   const handlePrescriptionUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setPrescriptionFile(file);
       const reader = new FileReader();
       reader.onload = (e) => {
         setPrescriptionPreview(e.target?.result as string);

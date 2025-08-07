@@ -277,7 +277,7 @@ const Orders: React.FC = () => {
                       <button
                         onClick={() => {
                           // Handle order cancellation
-                          toast.info('Order cancellation feature coming soon');
+                          toast('Order cancellation feature coming soon');
                         }}
                         className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
                       >
